@@ -7,26 +7,39 @@
     <style>
         body { margin: 0; height: 100vh; background-color: #121212; color: white; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; }
         .botoes { position: relative; width: 100vw; height: 50vh; margin-top: 20px; }
-        button { padding: 20px 30px; font-size: 20px; font-weight: bold; border-radius: 15px; border: none; position: absolute; touch-action: none; }
+        button { padding: 20px 30px; font-size: 20px; font-weight: bold; border-radius: 15px; border: none; position: absolute; touch-action: none; cursor: pointer; }
         #sim { background-color: #28a745; color: white; left: 50%; top: 20%; transform: translateX(-50%); z-index: 10; }
         #nao { background-color: #dc3545; color: white; left: 50%; top: 60%; transform: translateX(-50%); transition: 0.1s; }
+        .img-kart { border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); object-fit: cover; }
     </style>
 </head>
 <body>
     <h1 style="text-align: center;">Bora correr de Kart? 🏎️💨</h1>
-    <img src="https://makeagif.com/gif/go-kart-fight-zwL3Zi" width="200">
+    
+    <img src="https://images.unsplash.com/photo-1595111031300-3490715104be?auto=format&fit=crop&q=80&w=400" 
+         alt="Pessoa andando de Kart" 
+         class="img-kart" 
+         width="280" 
+         height="180">
+
     <div class="botoes">
-        <a href="https://api.whatsapp.com/send?phone=5585987899323&text=Aceito%20o%20desafio!%20Vou%20te%20vencer! :P ">
+        <a href="https://api.whatsapp.com/send?phone=5585987899323&text=Aceito%20o%20desafio!%20Vou%20te%20vencer!%20:P">
             <button id="sim">SIM! 🏁</button>
         </a>
         <button id="nao" onpointermove="foge(this)" ontouchstart="foge(this)">NÃO</button>
     </div>
+
     <script>
         function foge(botao) {
             const larguraMax = window.innerWidth - botao.offsetWidth;
             const alturaMax = window.innerHeight - botao.offsetHeight;
-            botao.style.left = Math.random() * larguraMax + "px";
-            botao.style.top = Math.random() * alturaMax + "px";
+            
+            // Garante que o botão não saia dos limites visíveis
+            const novoX = Math.random() * larguraMax;
+            const novoY = Math.random() * alturaMax;
+            
+            botao.style.left = novoX + "px";
+            botao.style.top = novoY + "px";
             botao.style.transform = "none";
         }
     </script>
