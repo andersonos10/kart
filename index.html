@@ -5,23 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Desafio de Kart!</title>
     <style>
-        body { margin: 0; height: 100vh; background-color: #121212; color: white; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; }
-        .botoes { position: relative; width: 100vw; height: 50vh; margin-top: 20px; }
-        button { padding: 20px 30px; font-size: 20px; font-weight: bold; border-radius: 15px; border: none; position: absolute; touch-action: none; cursor: pointer; }
-        #sim { background-color: #28a745; color: white; left: 50%; top: 20%; transform: translateX(-50%); z-index: 10; }
-        #nao { background-color: #dc3545; color: white; left: 50%; top: 60%; transform: translateX(-50%); transition: 0.1s; }
-        .img-kart { border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); object-fit: cover; }
+        body { margin: 0; height: 100vh; background-color: #121212; color: white; font-family: 'Segoe UI', sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: space-between; overflow: hidden; padding: 40px 0; box-sizing: border-box; }
+        
+        .header { text-align: center; z-index: 5; }
+        h1 { font-size: 1.8rem; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        
+        .img-container { width: 85%; max-width: 320px; height: 200px; border-radius: 20px; overflow: hidden; border: 3px solid #28a745; box-shadow: 0 10px 20px rgba(0,0,0,0.6); position: relative; background-color: #222; }
+        .img-container img { width: 100%; height: 100%; object-fit: cover; }
+
+        .botoes-wrapper { position: relative; width: 100%; height: 300px; }
+        
+        button { padding: 18px 35px; font-size: 20px; font-weight: bold; border-radius: 15px; border: none; position: absolute; cursor: pointer; transition: transform 0.1s; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        
+        #sim { background-color: #28a745; color: white; left: 50%; top: 10%; transform: translateX(-50%); z-index: 20; }
+        #nao { background-color: #dc3545; color: white; left: 50%; top: 50%; transform: translateX(-50%); touch-action: none; z-index: 10; }
     </style>
 </head>
 <body>
-    <h1 style="text-align: center;">Bora correr de Kart? 🏎️💨</h1>
-    
-    <img src="https://images.unsplash.com/photo-1595111031300-3490715104be?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
-     alt="Pessoa andando de Kart" 
-     style="width: 80%; max-width: 300px; border-radius: 15px; border: 2px solid #28a745;">
 
-    <div class="botoes">
-        <a href="https://api.whatsapp.com/send?phone=5585987899323&text=Aceito%20o%20desafio!%20Vou%20te%20vencer!%20:P">
+    <div class="header">
+        <h1>Bora correr de Kart? 🏎️💨</h1>
+        <p style="color: #aaa; margin-top: 5px;">O último paga o lanche!</p>
+    </div>
+
+    <div class="img-container">
+        <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJpZ3I0Z3R4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JnB0X2VpZD1nJmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7TKVUn7iM8FMEU24/giphy.webp" alt="Kart">
+    </div>
+
+    <div class="botoes-wrapper">
+        <a href="https://api.whatsapp.com/send?phone=5585987899323&text=Desafio%20Aceito!%20Prepara%20o%20capacete!%20🏁">
             <button id="sim">SIM! 🏁</button>
         </a>
         <button id="nao" onpointermove="foge(this)" ontouchstart="foge(this)">NÃO</button>
@@ -29,13 +41,14 @@
 
     <script>
         function foge(botao) {
-            const larguraMax = window.innerWidth - botao.offsetWidth;
-            const alturaMax = window.innerHeight - botao.offsetHeight;
-            
-            // Garante que o botão não saia dos limites visíveis
-            const novoX = Math.random() * larguraMax;
-            const novoY = Math.random() * alturaMax;
-            
+            // Pega os limites da área de botões para não fugir para fora da tela
+            const container = document.querySelector('.botoes-wrapper');
+            const maxX = container.clientWidth - botao.offsetWidth;
+            const maxY = container.clientHeight - botao.offsetHeight;
+
+            const novoX = Math.floor(Math.random() * maxX);
+            const novoY = Math.floor(Math.random() * maxY);
+
             botao.style.left = novoX + "px";
             botao.style.top = novoY + "px";
             botao.style.transform = "none";
